@@ -32,7 +32,7 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath 'com.github.brunodles:SlackUpload:0.1'
+        classpath 'com.github.brunodles:SlackUpload:-SNAPSHOT'
     }
 }
 ```
