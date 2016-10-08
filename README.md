@@ -38,12 +38,13 @@ buildscript {
 ```
 
 ### Create your upload task
+You can create a new task to upload the file you want.
 
 ```gradle
 task <your task name>(type: com.github.brunodles.slackupload.UploadTask) {
-    token "<your token>" // required, to create the token look above
-    file "<path to your file>" // required or send content
-    content "<content>" // required or send file
+    token "<your token>" // required, A token to identify who you are and where to send. To create the token look above
+    file "<path to your file>" // fill with the path to the file you want to send. Don't fill this if `content` is filled
+    content "<content>" // fill with any content, in this case the content will be converted into a Snippet. Don't fill this if `file` is filled.
     fileType "<type>" // optional
     filename "<file name>" // optional, will be used on download the file
     title "<title for this file>" // optional, will be shown on slack
