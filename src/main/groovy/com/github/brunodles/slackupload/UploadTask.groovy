@@ -1,4 +1,4 @@
-package com.github.brunodles.slacksender
+package com.github.brunodles.slackupload
 
 import com.github.brunodles.util.WebClient
 import org.gradle.api.DefaultTask
