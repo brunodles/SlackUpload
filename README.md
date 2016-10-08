@@ -1,7 +1,7 @@
 # SlackSender Plugin
-A plugin to send files to slack.
+A gradle task to send files to slack.
 
-Where I work, we need to send files to slack, so this plugin does the work for me.
+Where I work, we need to send files to slack, so this task does the work for me.
 With it I also able to create custom gradle tasks that sends a file when it finishes.
 
 This was built just to upload files, if you're looking for a plugin o send messages use [this one](https://github.com/Mindera/gradle-slack-plugin), which is based on [Java Slack-webhook](https://github.com/gpedro/slack-webhook).
@@ -23,7 +23,7 @@ A interesting point, when you use a **test token** the slack post messages as **
 
 ## How to Install
 
-To install this plugin is simple, it's released into [Jitpack](https://jitpack.io/).
+To install this task is simple, it's released into [Jitpack](https://jitpack.io/).
 
 Go to your `build.gradle` and add the following, it can be on your *root level* or on *app level*:
 ```gradle
@@ -35,11 +35,6 @@ buildscript {
         classpath 'com.github.brunodles:SlackUpload:0.1'
     }
 }
-```
-Now on the *app level* (`project/app/build.gradle`) apply the plugin.
-
-```gradle
-apply plugin: 'com.github.brunodles.SlackUpload'
 ```
 
 ### Create your upload task
@@ -93,7 +88,7 @@ You can use any code you found here, some of then I found on the internet too.
 
 I'm using the MIT Licence, take a look on [Licence](LICENCE.md).
 
-If you're using this plugin, please give me some credits too.
+If you're using this task, please give me some credits too.
 
 # Sources
 
