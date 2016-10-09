@@ -110,11 +110,15 @@ If you're using this task, please give me some credits too.
 
 # Sources
 
-* [Slack](https://slack.com/)
-* [Slack fileUpload](https://api.slack.com/methods/files.upload)
-* [Slack OAuth Scopes](https://api.slack.com/docs/oauth-scopes)
-* [Slack OAuth test tokens](https://api.slack.com/docs/oauth-test-tokens)
-* [Slack Create New App](https://api.slack.com/apps?new_app=1)
+## Slack
+* [Main Page](https://slack.com/)
+* [fileUpload](https://api.slack.com/methods/files.upload)
+* [OAuth Scopes](https://api.slack.com/docs/oauth-scopes)
+* [OAuth test tokens](https://api.slack.com/docs/oauth-test-tokens)
+* [Create New App](https://api.slack.com/apps?new_app=1)
+
+## Groovy
+* [Working with files ](http://mrhaki.blogspot.com.br/2009/08/groovy-goodness-working-with-files.html)
 
 ## Gradle
 * [Writing Custom Plugins](https://docs.gradle.org/current/userguide/custom_plugins.html)
