@@ -79,6 +79,23 @@ task sendQARelease(type: com.github.brunodles.slacksender.UploadTask, dependsOn:
 }
 ```
 
+Did you noticed the `getCurrentBranchCodeName`? It's a custom method inside my gradle file, so you can call it inside the task setup.
+
+### Protect you token
+As I said on the description, this task post as **you**, won't be cool everyone posting as you on the slack.
+So you can read the token from a file, to do that just replace the token value by a *file read operation* `project.file("token").text`.
+Like this
+
+```gradle
+task sendQARelease(type: com.github.brunodles.slacksender.UploadTask, dependsOn: 'assembleRelease') {
+    ...
+    token project.file("token").text
+}
+```
+
+Now add the file (`token`) into your `.gitignore`.
+
+
 # Contributing
 
 Issues are welcome, create one and we will discourse about it.
