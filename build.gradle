@@ -16,7 +16,7 @@ dependencies {
 }
 
 group 'com.github.brunodles'
-version '0.1'
+version '0.2'
 
 uploadArchives {
     repositories {
@@ -25,4 +25,3 @@ uploadArchives {
         }
     }
 }
-
