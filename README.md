@@ -1,10 +1,11 @@
 # SlackSender Plugin
-A gradle task to send files to slack.
+A gradle plugin to send files to slack.
 
-Where I work, we need to send files to slack, so this task does the work for me.
-With it I also able to create custom gradle tasks that sends a file when it finishes.
+Sometime in your developer life, you will need to send files to slack.
+When this became a routine I wrote this plugin that does the work for me.
+With it we're able to *create custom gradle tasks* that sends some file.
 
-This was built just to upload files, if you're looking for a plugin o send messages use [this one](https://github.com/Mindera/gradle-slack-plugin), which is based on [Java Slack-webhook](https://github.com/gpedro/slack-webhook).
+This was built just to upload files, if you're looking for a plugin to send messages use [this one](https://github.com/Mindera/gradle-slack-plugin), which is based on [Java Slack-webhook](https://github.com/gpedro/slack-webhook).
 
 # How to use
 
@@ -17,7 +18,9 @@ To do it, is simple access [this link](https://api.slack.com/docs/oauth-test-tok
 
 Slack authorization was made for web integrations, where each step leads the user to another URL.
 
-Well [here](https://api.slack.com/docs/oauth) you can read more about it, take a look, if you believe we can make it in some other way, please create a issue or a PR.
+Well [here](https://api.slack.com/docs/oauth) you can read more about it, take a look, if you believe we can make it in some other way, please create a issue or a PR, I do love to get the token automatically.
+
+I found a tool that works as a browser, a crawler, that installs emojis on slack, we can do the same using Java/Groovy.
 
 A interesting point, when you use a **test token** the slack post messages as **you**.
 
@@ -42,7 +45,8 @@ You can create a new task to upload the file you want.
 
 ```gradle
 task <your task name>(type: com.github.brunodles.slackupload.UploadTask) {
-    token "<your token>" // required, A token to identify who you are and where to send. To create the token look above
+    token "<your token>" // required, A token to identify who you are and where to send. To create the token look above. Don't need to be filled if you you use the `tokenFile`.
+    tokenFile "<path to your tokenfile>" // fill with the path to your token file. Don't use when `token` is filled.
     file "<path to your file>" // fill with the path to the file you want to send. Don't fill this if `content` is filled
     content "<content>" // fill with any content, in this case the content will be converted into a Snippet. Don't fill this if `file` is filled.
     fileType "<type>" // optional
@@ -83,18 +87,31 @@ Did you noticed the `getCurrentBranchCodeName`? It's a custom method inside my g
 
 ### Protect you token
 As I said on the description, this task post as **you**, won't be cool everyone posting as you on the slack.
-So you can read the token from a file, to do that just replace the token value by a *file read operation* `project.file("token").text`.
+So you can read the token from a file.
+~~To do that just replace the token value by a *file read operation* `project.file("token").text`.~~
+To do that use the `tokenFile` property to setup your task.
 Like this
 
 ```gradle
 task sendQARelease(type: com.github.brunodles.slacksender.UploadTask, dependsOn: 'assembleRelease') {
     ...
-    token project.file("token").text
+    tokenFile "token"
 }
 ```
-
 Now add the file (`token`) into your `.gitignore`.
 
+### Plugin and Multiple upload tasks
+When you have multiple upload tasks you can create a *plugin extension* in your project and apply the `slackUpload` plugin in you *app level* gradle file. `root/app/build.gradle`
+
+```gradle
+apply plugin: 'com.github.brunodles.SlackUpload'
+slackUpload {
+    // choose one
+    token "<your token>"
+    tokenFile "<path to your tokenfile>" // <- this one is suggested
+}
+```
+Just need to add this before your tasks.
 
 # Contributing
 
