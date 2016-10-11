@@ -35,8 +35,8 @@ public class UploadTask extends DefaultTask {
     }
 
     def loadFromParameters() {
-        if (!project.extensions.getByName(SLACK_UPLOAD_EXTENSION)) return
-        def slackExtension = project.slackUpload
+        def slackExtension = project.extensions.getByName(SLACK_UPLOAD_EXTENSION)
+        if (!slackExtension) return
         if (!token) token = slackExtension.token
         if (!tokenFile) tokenFile = slackExtension.tokenFile
     }
@@ -44,7 +44,8 @@ public class UploadTask extends DefaultTask {
     def sendToSlack() {
         validParameters()
         if (!errors.isEmpty()) {
-            errors.each { s -> println s }
+            for (String error : errors)
+                println error
             return
         }
 
@@ -74,7 +75,7 @@ public class UploadTask extends DefaultTask {
     }
 
     def validateToken() {
-        if (token != null) return true
+        if (token && !token.isEmpty()) return
         if (tokenFile == null) {
             errors.add "The 'token' and the 'tokenFile' are empty, use one of those."
             return
@@ -84,9 +85,11 @@ public class UploadTask extends DefaultTask {
         if (tokenFile.exists()) {
             token = tokenFile.text.trim()
         } else {
-            println "Token file does not exist, we will create it for you."
-            tokenFile.write("")
+            errors.add "Token file does not exist, we will create it for you.\nCreate a test token on slack\nhttps://api.slack.com/docs/oauth-test-tokens"
+            tokenFile.createNewFile()
         }
+        if (token && token.isEmpty())
+            errors.add "Token is empty. Look into the task or your token file"
     }
 
     def validateFileName() {
