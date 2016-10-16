@@ -138,8 +138,11 @@ If you're using this task, please give me some credits too.
 * [Working with files ](http://mrhaki.blogspot.com.br/2009/08/groovy-goodness-working-with-files.html)
 
 ## Gradle
+* [Writing Custom Tasks](https://docs.gradle.org/current/userguide/custom_tasks.html)
 * [Writing Custom Plugins](https://docs.gradle.org/current/userguide/custom_plugins.html)
 * [Custom Methods in build.gradle](http://stackoverflow.com/a/38032000/1622925)
+* [Writing Test for gradle tasks](https://docs.gradle.org/current/userguide/test_kit.html)
+* [Execute a task in unit test ](https://discuss.gradle.org/t/how-to-execute-a-task-in-unit-test-for-custom-plugin/6771/2)
 
 ## JitPack
 * [JitPack](https://jitpack.io/)
