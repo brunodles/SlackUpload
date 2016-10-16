@@ -1,4 +1,4 @@
-import com.github.brunodles.slacksender.UploadTask;
+import com.github.brunodles.slackupload.UploadTask;
 import com.github.brunodles.util.WebClient;
 
 import java.io.File;
