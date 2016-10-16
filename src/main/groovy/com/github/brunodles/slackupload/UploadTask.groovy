@@ -100,4 +100,13 @@ public class UploadTask extends DefaultTask {
         if (file || content) return
         errors.add("Use 'file' or 'content' to upload something to slack.")
     }
+
+    @Override
+    String getDescription() {
+        def description = super.getDescription()
+        if (description) return description
+        if (file)
+            return "Upload \"$file\" to the channel \"$channels\" on slack";
+        return "Upload a custom content to slack"
+    }
 }
