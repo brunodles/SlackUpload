@@ -143,6 +143,8 @@ If you're using this task, please give me some credits too.
 * [Custom Methods in build.gradle](http://stackoverflow.com/a/38032000/1622925)
 * [Writing Test for gradle tasks](https://docs.gradle.org/current/userguide/test_kit.html)
 * [Execute a task in unit test ](https://discuss.gradle.org/t/how-to-execute-a-task-in-unit-test-for-custom-plugin/6771/2)
+* [Input from console](http://mrhaki.blogspot.com.br/2010/09/gradle-goodness-get-user-input-values.html)
+* [Null console on Gradle Task?](http://stackoverflow.com/questions/19487576/gradle-build-null-console-object)
 
 ## JitPack
 * [JitPack](https://jitpack.io/)
