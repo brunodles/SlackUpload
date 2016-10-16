@@ -69,7 +69,10 @@ public class UploadTask extends DefaultTask {
         if (initial_comment) client.addPostParameter("initial_comment", initial_comment)
         if (channels) client.addPostParameter("channels", channels)
         def response = client.doPost()
-        println "Status $response.code = $response.response"
+        if (response.code == 200)
+            println "Sent"
+        else
+            println "Status $response.code = $response.response"
     }
 
     def validParameters() {
