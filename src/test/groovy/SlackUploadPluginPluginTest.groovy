@@ -11,13 +11,13 @@ import static junit.framework.TestCase.assertTrue
 /**
  * Created by bruno on 16/10/16.
  */
-class SlackUploadPluginTest {
+class SlackUploadPluginPluginTest {
     private Project project
 
     @Before
     public void applyGradlePlugin() {
         project = ProjectBuilder.builder().build()
-        this.project.pluginManager.apply 'com.github.brunodles.SlackUpload'
+        this.project.pluginManager.apply 'com.github.brunodles.SlackUploadPlugin'
     }
 
     @Test

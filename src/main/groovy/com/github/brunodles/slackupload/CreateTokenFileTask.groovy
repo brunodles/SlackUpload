@@ -3,7 +3,7 @@ package com.github.brunodles.slackupload
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
-import static SlackUpload.SLACK_UPLOAD_EXTENSION
+import static SlackUploadPlugin.SLACK_UPLOAD_EXTENSION
 import static com.github.brunodles.slackupload.GradleHelper.tryGetExtension
 
 class CreateTokenFileTask extends DefaultTask {

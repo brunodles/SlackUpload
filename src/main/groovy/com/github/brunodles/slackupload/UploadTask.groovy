@@ -5,7 +5,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 import static com.github.brunodles.slackupload.GradleHelper.tryGetExtension
-import static com.github.brunodles.slackupload.SlackUpload.SLACK_UPLOAD_EXTENSION
+import static SlackUploadPlugin.SLACK_UPLOAD_EXTENSION
 
 /**
  * Created by bruno on 30/09/16.

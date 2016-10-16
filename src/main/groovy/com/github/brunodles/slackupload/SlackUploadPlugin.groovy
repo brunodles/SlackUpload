@@ -3,7 +3,7 @@ package com.github.brunodles.slackupload
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-class SlackUpload implements Plugin<Project> {
+class SlackUploadPlugin implements Plugin<Project> {
 
     public static final String SLACK_UPLOAD_EXTENSION = "slackUpload"
 
