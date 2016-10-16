@@ -2,9 +2,12 @@ package com.github.brunodles.slackupload
 
 import com.github.brunodles.util.WebClient
 import org.gradle.api.DefaultTask
+import org.gradle.api.UnknownDomainObjectException
 import org.gradle.api.tasks.TaskAction
 
 import static SlackUpload.SLACK_UPLOAD_EXTENSION
+import static com.github.brunodles.slackupload.GradleHelper.*
+import static com.github.brunodles.slackupload.SlackUpload.SLACK_UPLOAD_EXTENSION
 
 /**
  * Created by bruno on 30/09/16.
@@ -35,7 +38,7 @@ public class UploadTask extends DefaultTask {
     }
 
     def loadFromParameters() {
-        def slackExtension = project.extensions.getByName(SLACK_UPLOAD_EXTENSION)
+        def slackExtension = tryGetExtension(project, SLACK_UPLOAD_EXTENSION)
         if (!slackExtension) return
         if (!token) token = slackExtension.token
         if (!tokenFile) tokenFile = slackExtension.tokenFile
