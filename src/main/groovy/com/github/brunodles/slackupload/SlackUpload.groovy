@@ -10,7 +10,10 @@ class SlackUpload implements Plugin<Project> {
     @Override
     void apply(Project project) {
         project.extensions.create(SLACK_UPLOAD_EXTENSION, SlackUploadPluginExtension)
-        project.task("createTokenFile", type: CreateTokenFileTask)
+        project.task("createTokenFile", type: CreateTokenFileTask) {
+            description "Create a token file for you. Run this task with `--no-daemon` use to console input."
+            group "Setup"
+        }
         project.task("uploadTask", type: UploadTask)
     }
 }
