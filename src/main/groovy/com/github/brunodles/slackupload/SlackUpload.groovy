@@ -18,7 +18,3 @@ class SlackUpload implements Plugin<Project> {
     }
 }
 
-class SlackUploadPluginExtension {
-    String token
-    String tokenFile
-}
