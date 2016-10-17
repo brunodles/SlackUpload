@@ -1,0 +1,13 @@
+ext.getCurrentBranchName = { ->
+    return 'git rev-parse --abbrev-ref HEAD'.execute().text.trim()
+}
+
+ext.getLastTagInCurrentBranch = { ->
+    return 'git describe --tags --abbrev=0'.execute().text.trim()
+}
+
+ext.getLastTagInCurrentBranchOr = { tag ->
+    def gtag = 'git describe --tags --abbrev=0'.execute().text.trim()
+    if (gtag && !gtag.isEmpty()) return gtag
+    return tag
+}
