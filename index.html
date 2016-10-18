@@ -1,36 +1,71 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Slack Upload code</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Slack Upload</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- <script src="js/ie-emulation-modes-warning.js"></script> -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="css/slack.css" rel="stylesheet">
   </head>
+
   <body>
-    <h1>Slack Upload</h1>
-    <span id="code"></span>
-    <script type="text/javascript">
-      var QueryString = function () {
-        // This function is anonymous, is executed immediately and
-        // the return value is assigned to QueryString!
-        var query_string = {};
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i=0;i<vars.length;i++) {
-          var pair = vars[i].split("=");
-              // If first entry with this name
-          if (typeof query_string[pair[0]] === "undefined") {
-            query_string[pair[0]] = decodeURIComponent(pair[1]);
-              // If second entry with this name
-          } else if (typeof query_string[pair[0]] === "string") {
-            var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
-            query_string[pair[0]] = arr;
-              // If third or later entry with this name
-          } else {
-            query_string[pair[0]].push(decodeURIComponent(pair[1]));
-          }
-        }
-        return query_string;
-      }();
-      document.getElementById('code').innerHTML = QueryString.code;
-    </script>
+
+    <div class="container">
+
+      <div class="row">
+        <h1>Slack Upload</h1>
+
+        <p class="lead">Hey there, this is the SlackUpload Token generator. A gradle plugin to send files to slack.</p>
+        <p>This page is just to generate the token on slack, so you will be able to use this token on the gradle plugin.</p>
+
+        <h4>Looks like you don't have a token</h4>
+        <p>To generate a token for you just click on the button below.</p>
+        <a id="button" href="https://slack.com/oauth/authorize?scope=files:write:user&client_id=69648668736.86028092004"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+      </div>
+
+      <div id="output" class="row bg-success">
+        <h2>Your token is</h2>
+        <h3 id="token"></h3>
+      </div>
+
+      <div id="error" class="row bg-danger">
+        <h2>Error!</h2>
+        <h3>We got an error trying to get a token for you!</h3>
+        <p id="errorMessage"></p>
+      </div>
+
+      <footer class="footer">
+        <p>&copy; 2016 Bruno de Lima e Silva</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/slack.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <script src="js/ie10-viewport-bug-workaround.js"></script> -->
   </body>
 </html>
