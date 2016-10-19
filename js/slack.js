@@ -25,6 +25,8 @@ function createDownloadElement(filename, text){
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     element.setAttribute('download', filename);
+    element.className += " btn btn-default"
+    element.innerHTML = "Download Token"
 
     element.style.display = 'none';
 
@@ -59,6 +61,7 @@ function onSuccess(result){
   outputElement.style.visibility = 'visible';
   outputElement.style.display = 'block';
   document.getElementById('token').innerHTML = token;
+  downloadElement.click();
 }
 
 function onError(result){
