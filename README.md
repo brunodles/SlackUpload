@@ -12,17 +12,9 @@ This was built just to upload files, if you're looking for a plugin to send mess
 ## App Token
 
 First we need to generate a token for our app.
-To do it, is simple access [this link](https://api.slack.com/docs/oauth-test-tokens) and you will be able to create a token for your team.
+Click on the buttom bellow to generate a token for you.
 
-### Why we use a Test token?
-
-Slack authorization was made for web integrations, where each step leads the user to another URL.
-
-Well [here](https://api.slack.com/docs/oauth) you can read more about it, take a look, if you believe we can make it in some other way, please create a issue or a PR, I do love to get the token automatically.
-
-I found a tool that works as a browser, a crawler, that installs emojis on slack, we can do the same using Java/Groovy.
-
-A interesting point, when you use a **test token** the slack post messages as **you**.
+<a href="https://slack.com/oauth/authorize?scope=files:write:user&amp;client_id=69648668736.86028092004"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"></a>
 
 ## How to Install
 
