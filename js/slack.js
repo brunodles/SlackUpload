@@ -39,6 +39,7 @@ function download(filename, text) {
 }
 
 function main(){
+  if (QueryString.code === undefined) return;
   fetch("https://slack.com/api/oauth.access?client_id=69648668736.86028092004&client_secret=df8416a4bc8db27e62c46706ee61e3a9&code="+QueryString.code)
     .then(res => res.json())
     .then(j => onSuccess(j))
@@ -56,12 +57,14 @@ function onSuccess(result){
   var outputElement = document.getElementById("output");
   outputElement.appendChild(downloadElement);
   outputElement.style.visibility = 'visible';
+  outputElement.style.display = 'block';
   document.getElementById('token').innerHTML = token;
 }
 
 function onError(result){
   var errorElement = document.getElementById("error")
   errorElement.style.visibility = 'visible';
+  errorElement.style.display = 'block';
   document.getElementById("errorMessage").innerHTML = result.error;
 
 }

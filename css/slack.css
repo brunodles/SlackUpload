@@ -1,7 +1,9 @@
 #output {
-  visibility: hidden;
+  visibility: collapse;
+  display: none;
 }
 
 #error {
-  visibility: hidden;
+  visibility: collapse;
+  display: none;
 }
