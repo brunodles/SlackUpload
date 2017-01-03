@@ -17,7 +17,7 @@ class SlackUploadPluginPluginTest {
     @Before
     public void applyGradlePlugin() {
         project = ProjectBuilder.builder().build()
-        this.project.pluginManager.apply 'com.github.brunodles.SlackUploadPlugin'
+        this.project.pluginManager.apply 'com.github.brunodles.SlackUpload'
     }
 
     @Test

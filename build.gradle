@@ -1,6 +1,31 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.0.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+    }
+}
+
 apply plugin: 'groovy'
-apply plugin: 'maven'
 apply from: rootProject.file("gradle/git.gradle")
+
+ext.maven = [
+        group   : "com.brunodles",
+        version : getLastTagInCurrentBranchOr('0.5-dev'),
+        repo    : "TempRepo",
+        name    : "SlackUpload",
+        artifact: "slackupload",
+        site    : "https://github.com/brunodles/SlackUpload",
+        git     : "git@github.com:brunodles/SlackUpload.git",
+        tag     : 'git rev-parse --abbrev-ref HEAD'.execute().text.trim()
+]
+ext.maven_publish = [
+        artifact: maven.artifact,
+        name    : maven.name
+]
+apply from: rootProject.file('gradle/publish.gradle')
 
 repositories {
     mavenCentral()
@@ -11,13 +36,10 @@ dependencies {
     compile localGroovy()
     testCompile 'junit:junit:4.12'
     testCompile gradleTestKit()
-    testCompile ("org.spockframework:spock-core:1.0-groovy-2.4"){
+    testCompile("org.spockframework:spock-core:1.0-groovy-2.4") {
         exclude module: 'groovy-all'
     }
 }
-
-group 'com.github.brunodles'
-version getLastTagInCurrentBranchOr('0.5-dev')
 
 uploadArchives {
     repositories {

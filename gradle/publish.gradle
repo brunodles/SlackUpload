@@ -1,0 +1,78 @@
+
+
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+
+group maven.group
+version maven.version
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.artifactId = maven_publish.artifact
+        pom.project {
+            name maven_publish.name
+            url maven.site
+            scm {
+                connection maven.git
+                developerConnection maven.git
+                url maven.git
+            }
+        }
+    }
+}
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            groupId maven.group
+            artifactId maven_publish.artifact
+            version maven.version
+        }
+    }
+}
+
+bintray {
+    // Load the properties from `~/.gradle/gradle.properties`
+    if (project.hasProperty("bintray.user") && project.hasProperty("bintray.apikey")) {
+        user = project.property("bintray.user")
+        key = project.property("bintray.apikey")
+    } else {
+        logger.info('Bintray user/apikey not found')
+    }
+    publications = ['MyPublication']
+
+    configurations = ['archives']
+    pkg {
+        repo = maven.repo
+        name = maven_publish.artifact
+//        userOrg = maven.name
+        websiteUrl = maven.site
+        vcsUrl = maven.git
+        licenses = ["mit"]
+        publish = true
+        version {
+            name = maven.version
+            released = new Date()
+            vcsTag = maven.tag
+        }
+    }
+}
