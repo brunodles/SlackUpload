@@ -1,8 +1,10 @@
-package com.github.brunodles.slackupload
+package com.brunodles.slackupload
 
+import com.brunodles.auto.gradleplugin.AutoPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
+@AutoPlugin(["slackupload", "com.brunodles.SlackUpload", "com.brunodles.SlackUploadPlugin"])
 class SlackUploadPlugin implements Plugin<Project> {
 
     public static final String SLACK_UPLOAD_EXTENSION = "slackUpload"
@@ -14,7 +16,6 @@ class SlackUploadPlugin implements Plugin<Project> {
             description "Create a token file for you. Run this task with `--no-daemon` use to console input."
             group "Setup"
         }
-        project.task("uploadTask", type: UploadTask)
     }
 }
 

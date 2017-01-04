@@ -1,10 +1,9 @@
-package com.github.brunodles.slackupload
+package com.brunodles.slackupload
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 import static SlackUploadPlugin.SLACK_UPLOAD_EXTENSION
-import static com.github.brunodles.slackupload.GradleHelper.tryGetExtension
 
 class CreateTokenFileTask extends DefaultTask {
 
@@ -19,7 +18,7 @@ class CreateTokenFileTask extends DefaultTask {
     }
 
     def getSlackExtension() {
-        def extension = tryGetExtension(project, SLACK_UPLOAD_EXTENSION)
+        def extension = GradleHelper.tryGetExtension(project, SLACK_UPLOAD_EXTENSION)
         if (!extension) {
             println "Can't find 'slackUpload' settings"
             return null

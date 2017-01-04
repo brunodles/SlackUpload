@@ -1,5 +1,4 @@
-package com.github.brunodles.util;
-
+package com.brunodles.util;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -9,9 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author bruno de lima
- */
 public class WebClient {
 
     public static final int LOG_NONE = 0;

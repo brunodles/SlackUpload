@@ -1,15 +1,22 @@
 buildscript {
     repositories {
         jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.0.0'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.9"
     }
 }
 
 apply plugin: 'groovy'
+apply plugin: "net.ltgt.apt"
 apply from: rootProject.file("gradle/git.gradle")
+
+compileGroovy {
+    groovyOptions.javaAnnotationProcessing = true
+}
 
 ext.maven = [
         group   : "com.brunodles",
@@ -28,23 +35,18 @@ ext.maven_publish = [
 apply from: rootProject.file('gradle/publish.gradle')
 
 repositories {
-    mavenCentral()
+    jcenter()
+    mavenLocal()
 }
 
 dependencies {
     compile gradleApi()
     compile localGroovy()
+    compileOnly 'com.brunodles:autoplugin-annotation:1.0.0'
+    apt 'com.brunodles:autoplugin-processor:1.0.0'
     testCompile 'junit:junit:4.12'
     testCompile gradleTestKit()
     testCompile("org.spockframework:spock-core:1.0-groovy-2.4") {
         exclude module: 'groovy-all'
-    }
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: uri('../repo'))
-        }
     }
 }

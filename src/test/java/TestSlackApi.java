@@ -1,12 +1,9 @@
-import com.github.brunodles.slackupload.UploadTask;
-import com.github.brunodles.util.WebClient;
+import com.brunodles.slackupload.UploadTask;
+import com.brunodles.util.WebClient;
 
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by bruno on 30/09/16.
- */
 public class TestSlackApi {
     public static void main(String[] args) throws IOException {
         File file = new File("settings.gradle");

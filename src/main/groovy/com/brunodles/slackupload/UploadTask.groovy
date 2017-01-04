@@ -1,15 +1,11 @@
-package com.github.brunodles.slackupload
+package com.brunodles.slackupload
 
-import com.github.brunodles.util.WebClient
+import com.brunodles.util.WebClient
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
-import static com.github.brunodles.slackupload.GradleHelper.tryGetExtension
 import static SlackUploadPlugin.SLACK_UPLOAD_EXTENSION
 
-/**
- * Created by bruno on 30/09/16.
- */
 public class UploadTask extends DefaultTask {
 
     public static final String SLACK_UPLOAD_URL = "https://slack.com/api/files.upload"
@@ -36,7 +32,7 @@ public class UploadTask extends DefaultTask {
     }
 
     def loadFromParameters() {
-        def slackExtension = tryGetExtension(project, SLACK_UPLOAD_EXTENSION)
+        def slackExtension = GradleHelper.tryGetExtension(project, SLACK_UPLOAD_EXTENSION)
         if (!slackExtension) return
         if (!token) token = slackExtension.token
         if (!tokenFile) tokenFile = slackExtension.tokenFile
