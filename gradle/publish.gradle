@@ -1,12 +1,9 @@
-
-
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
-
-group maven.group
-version maven.version
+group publishing.group
+version publishing.version
 
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
@@ -22,57 +19,116 @@ artifacts {
     archives javadocJar, sourcesJar
 }
 
+def pomConfig = {
+    licenses {
+        license {
+            name publishing.license.name
+            url publishing.license.url
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            name publishing.developer.name
+            email publishing.developer.email
+        }
+    }
+}
+
+// Maven Local
 install {
     repositories.mavenInstaller {
-        pom.artifactId = maven_publish.artifact
+        pom.artifactId = publishing.artifact
         pom.project {
-            name maven_publish.name
-            url maven.site
+            name publishing.name
+            url publishing.site
             scm {
-                connection maven.git
-                developerConnection maven.git
-                url maven.git
+                connection "scm:git:git://${publishing.gitPath}.git"
+                developerConnection "scm:git:ssh://${publishing.gitPath}.git"
+                url "http://${publishing.gitPath}"
+            }
+        }
+        pom.withXml {
+            def root = asNode()
+            root.appendNode('description', publishing.desc)
+            root.children().last() + pomConfig
+        }
+    }
+}
+// Maven Central
+def scmVcs = {
+    scm {
+        connection "scm:git:git://${publishing.gitPath}.git"
+        developerConnection "scm:git:ssh://${publishing.gitPath}.git"
+        url "http://${publishing.gitPath}"
+    }
+}
+publishing {
+    publications {
+        mainPublication(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            groupId publishing.group
+            artifactId publishing.artifact
+            version publishing.version
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', publishing.desc)
+                root.appendNode('name', publishing.name)
+                root.appendNode('url', publishing.site)
+                root.children().last() + pomConfig
+                root.children().last() + scmVcs
             }
         }
     }
 }
 
-publishing {
-    publications {
-        MyPublication(MavenPublication) {
-            from components.java
-            artifact sourcesJar
-            artifact javadocJar
-            groupId maven.group
-            artifactId maven_publish.artifact
-            version maven.version
-        }
-    }
+def property(String projectName, String systemName, def defaultValue) {
+    // Load the properties from `~/.gradle/gradle.properties`
+    if (project.hasProperty(projectName))
+        return project.property(projectName)
+    else if (System.getenv().containsKey(systemName))
+        return System.getenv(systemName)
+    else
+        return defaultValue
+}
+
+static def or(def ... values) {
+    for (def value : values)
+        if (value != null) return value
 }
 
 bintray {
-    // Load the properties from `~/.gradle/gradle.properties`
-    if (project.hasProperty("bintray.user") && project.hasProperty("bintray.apikey")) {
-        user = project.property("bintray.user")
-        key = project.property("bintray.apikey")
-    } else {
+    user = property("bintray.user", "BINTRAY_USER", null)
+    key = property("bintray.apikey", "BINTRAY_APIKEY", null)
+    def bintrayRepo = property("bintray.repo", "BINTRAY_REPO", publishing.repo)
+    logger.info("Bintray user $user")
+    logger.info("Bintray repo $bintrayRepo")
+    if (user == null || key == null) {
         logger.info('Bintray user/apikey not found')
+        throw new GradleException('Bintray user/apikey not found')
     }
-    publications = ['MyPublication']
-
+    publications = ['mainPublication']
     configurations = ['archives']
+    publish = true
+    override = or(publishing.override, false)
     pkg {
-        repo = maven.repo
-        name = maven_publish.artifact
-//        userOrg = maven.name
-        websiteUrl = maven.site
-        vcsUrl = maven.git
-        licenses = ["mit"]
-        publish = true
+        repo = bintrayRepo
+        name = publishing.artifact
+        userOrg = or(publishing.userOrg, null)
+        desc = or(publishing.desc, null)
+        websiteUrl = publishing.site
+        issueTrackerUrl = or(publishing.issueTrackerUrl, "${publishing.site}/issues")
+        vcsUrl = "http://" + or(publishing.gitPath, "${publishing.site}.git")
+        licenses = [or(publishing.license.short, "mit")]
+        publicDownloadNumbers = true
         version {
-            name = maven.version
+            name = publishing.version
             released = new Date()
-            vcsTag = maven.tag
+            vcsTag = publishing.tag
         }
     }
 }
+
+project.tasks.getByName('bintrayUpload').dependsOn('install', 'generatePomFileForMainPublicationPublication')

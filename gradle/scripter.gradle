@@ -1,0 +1,15 @@
+task updateScripts() {
+    doLast {
+        if (!project.hasProperty('scripter')) {
+            println "Setup your files using `ext.scripter : [ script = \"url\"]`"
+            return
+        }
+        for (entry in scripter) {
+            println "${entry.key} ${entry.value}"
+            File file = new File(entry.key)
+            new URL(entry.value).withInputStream { i ->
+                file.withOutputStream { it << i }
+            }
+        }
+    }
+}
