@@ -43,7 +43,7 @@ apply from: rootProject.file("gradle/scripter.gradle")
 def gitPath = "github.com/brunodles/SlackUpload"
 ext.publishing = [
         group          : "com.brunodles",
-        version        : '1.0.0',
+        version        : '1.0.1',
         repo           : "TempRepo",
         name           : "SlackUpload",
         artifact       : "slackupload",
