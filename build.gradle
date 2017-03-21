@@ -52,7 +52,7 @@ ext.publishing = [
         issueTrackerUrl: "https://$gitPath/issues",
         tag            : 'git rev-parse --abbrev-ref HEAD'.execute().text.trim(),
         override       : true,
-        desc           : "A simple project to grab images from google images search.",
+        desc           : "A gradle plugin to send files to slack.",
         license        : [
                 short: "mit",
                 name : "MIT License",
