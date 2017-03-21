@@ -44,9 +44,9 @@ def gitPath = "github.com/brunodles/SlackUpload"
 ext.publishing = [
         group          : "com.brunodles",
         version        : '1.0.0',
-        repo           : "SlackUpload",
-        name           : "slackupload",
-        artifact       : "googleimagesapi",
+        repo           : "TempRepo",
+        name           : "SlackUpload",
+        artifact       : "slackupload",
         gitPath        : gitPath,
         site           : "https://$gitPath",
         issueTrackerUrl: "https://$gitPath/issues",
